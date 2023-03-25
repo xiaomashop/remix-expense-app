@@ -1,4 +1,5 @@
 import ExpenseStatistics from "~/components/expenses/ExpenseStatistics";
+import ExpensesHeader from "~/components/navigation/ExpensesHeader";
 import Chart from "~/components/expenses/Chart";
 //import expensesStyles from "~/styles/expenses.css"
 
@@ -18,11 +19,13 @@ const DUMMY_EXPENSES = [
 ]
 
 export default function ExpensesAdd() {
-    return (<main>
-        <h1>Analysis Page</h1>
-        <Chart expenses={DUMMY_EXPENSES}/>
-        <ExpenseStatistics expenses={DUMMY_EXPENSES}/>
-    </main>);
+    return (<>
+        <ExpensesHeader />
+        <main>
+            <Chart expenses={DUMMY_EXPENSES}/>
+            <ExpenseStatistics expenses={DUMMY_EXPENSES}/>
+        </main>
+    </>);
 }
 
 /*

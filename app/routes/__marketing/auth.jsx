@@ -7,6 +7,7 @@ export default function Auth(){
     </main>);
 }
 
+
 export function links() {
     return [{rel: 'stylesheet', href:authStyles}];
 }

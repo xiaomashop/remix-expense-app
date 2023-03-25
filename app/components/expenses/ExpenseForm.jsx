@@ -1,9 +1,19 @@
-import { Form, Link, useActionData, useLoaderData, useNavigation } from "@remix-run/react";
+import { Form, Link, useActionData, useLoaderData, useMatches, useNavigation, useParams } from "@remix-run/react";
 
 function ExpenseForm() {
 
   // If ExpenseForm is used for updating, expenseData should have a value.
-  const expenseData = useLoaderData();
+  //const expenseData = useLoaderData();
+  
+  // Alternative
+  // We can use matches to access all currently active routes and the data loaded it these routes
+  const matches = useMatches();
+  const params = useParams();
+  //console.log("params",params)
+  const expenses = matches.find(match=>match.id==='routes/__expenses/expenses').data
+  const expenseData = expenses.find(expense=>expense.id===params.expenseId)
+  //console.log(expenseData)
+
   const defaultValues = expenseData? {
     title: expenseData.title,
     amount: expenseData.amount,
@@ -21,7 +31,13 @@ function ExpenseForm() {
   const navigation = useNavigation();
   const isSubmitting = navigation.state !== 'idle'
   return (
-    <Form method="post" className="form" id="expense-form">
+    <Form
+      // if ExpenseForm is used for updating data, patch method is used.
+      // otherwise for creating new data, post method is used.
+      method={expenseData? 'patch':'post'}
+      className="form" 
+      id="expense-form"
+    >
       <p>
         <label htmlFor="title">Expense Title</label>
         <input type="text" id="title" name="title" required maxLength={30}

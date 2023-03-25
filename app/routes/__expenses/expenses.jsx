@@ -33,8 +33,8 @@ export default function ExpensesLayout() {
 
 export async function loader() {
     const expenses = await getExpenses();
-    console.log("LOAD ALL EXPENSES")
-    console.log(expenses)
+    //console.log("LOAD ALL EXPENSES")
+    //console.log(expenses)
     // return a raw data wrapped with response to the front end
     return json(expenses);
 }
