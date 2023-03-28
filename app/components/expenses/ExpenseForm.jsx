@@ -6,13 +6,12 @@ function ExpenseForm() {
   //const expenseData = useLoaderData();
   
   // Alternative
-  // We can use matches to access all currently active routes and the data loaded it these routes
+  // We can use matches to access all currently active routes and the data loaded in these routes
   const matches = useMatches();
   const params = useParams();
   //console.log("params",params)
   const expenses = matches.find(match=>match.id==='routes/__expenses/expenses').data
   const expenseData = expenses.find(expense=>expense.id===params.expenseId)
-  //console.log(expenseData)
 
   const defaultValues = expenseData? {
     title: expenseData.title,
@@ -30,6 +29,13 @@ function ExpenseForm() {
   // Use navigation to find out whether you are submitting/loading the data or in idle
   const navigation = useNavigation();
   const isSubmitting = navigation.state !== 'idle'
+
+  //Check if params.expenseId is valid or invalid
+  //Have expenseId but have no data => this expenseId is invalid
+  if(params.expenseId && !expenseData){
+    return <p>Invalid Expense Id</p>
+  }
+  
   return (
     <Form
       // if ExpenseForm is used for updating data, patch method is used.
