@@ -51,5 +51,15 @@ export async function loader({request}) {
             {status:404, statusText:"No expenses found."}
         );
     }*/
-    return json(expenses);
+    return json(expenses,{
+        headers: {
+            'Cache-Control': 'max-age=3',
+        }
+    });
+}
+
+export function headers({loaderHeaders}){
+    return {
+        'Cache-Control': loaderHeaders.get('Cache-Control')
+    }
 }

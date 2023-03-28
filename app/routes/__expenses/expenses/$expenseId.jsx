@@ -50,5 +50,16 @@ export async function action({params, request}) {
         await deleteExpense(expenseId);
     }
     return redirect("/expenses");
-    
+}
+
+export function meta({params, parentsData}) {
+    //console.log("parentsData",parentsData)
+    const expense = parentsData['routes/__expenses/expenses'].find(
+        (expense) => expense.id === params.expenseId
+    );
+    console.log(expense)
+    return {
+        title: "Expense(" + expense.title + ")",
+        description: "Update expense."
+    }
 }
